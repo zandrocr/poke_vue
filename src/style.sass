@@ -1,0 +1,60 @@
+#app, html
+    color: #fff
+    background: #0e0e0e
+
+nav
+    a
+        text-decoration: none
+        transition: .3s ease
+        &:hover
+            color: #f7ffb4
+
+        &.router-link-exact-active
+            color: #cfd301
+
+    [data-menu]
+        z-index: 10
+        bottom: 15vh
+        position: fixed
+        cursor: pointer
+
+        [data-button]
+            right: 5vh
+            position: absolute
+
+        .circle
+            cursor: default
+            position: absolute
+            left: 5vh
+            bottom: 0vh
+            width: 5vh
+            height: 5vh
+            border-radius: 100%
+            border: solid 1px #fff
+            background: #ff0000
+
+        [data-image]
+            right: 0
+            bottom: 0
+            width: 7vh
+            height: 7vh
+            padding: .5vh
+            position: absolute
+            background: #fff
+            border-radius: 1vh
+            transition: .5s ease
+
+        [data-image="menu"]
+            z-index: 9
+
+            div
+                width: 6vh
+                height: 1vh
+                border-radius: 1vh
+                background: #000
+
+        [data-image='pokemon']
+            right: 10vh
+
+        [data-image='user']
+            bottom: 10vh
