@@ -11,7 +11,7 @@
 					<div></div>
 					<div></div>
 				</span>
-				<router-link :to="`/pokemon/${pokeid}`">
+				<router-link :to="/">
 					<img
 						:src="pokedex"
 						alt="route.name"

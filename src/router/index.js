@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"
 const routes = [
 	{
-		path: "/pokemon/:id",
+		path: "/",
 		name: "Pokemon",
 		style: "pokemon",
 		component: () => import("../views/pokedex/PokemonView.vue"),
