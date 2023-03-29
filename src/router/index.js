@@ -10,7 +10,7 @@ const routes = [
 		path: "/user",
 		name: "User",
 		style: "user",
-		component: () => import("../views/UserView.vue"),
+		component: () => import("../views/user/UserView.vue"),
 	},
 ]
 

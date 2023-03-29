@@ -1,9 +1,15 @@
 import axios from "axios"
 import { createStore } from "vuex"
+import { provider, auth, db } from "../firebase"
+import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
+import { collection, doc, getDocs, setDoc } from "firebase/firestore"
 
 export default createStore({
 	state: {
 		pokemon: "",
+		user: JSON.parse(localStorage.getItem("@AuthLogginGoogle:user")),
+		userContainer: [],
+		catchPokemon: [],
 		searchResponse: [],
 		pokemonSearch: "1",
 		pokeId: 1,
@@ -12,8 +18,18 @@ export default createStore({
 	getters: {
 		getPokemon: (state) => state.pokemon,
 		getSearch: (state) => state.searchResponse,
+		getUser: (state) => state.userContainer,
+		getCatch: (state) => state.catchPokemon,
 	},
 	actions: {
+		async getTrainerPokemon({ commit }) {
+			const data = await getDocs(collection(db, this.state.user.apiKey))
+			data.forEach((response) => {
+				if (response.id === this.state.user.uid) {
+					commit("SET_USER", response.data())
+				}
+			})
+		},
 		async fetchPokemon({ commit }) {
 			await axios
 				.get(`https://pokeapi.co/api/v2/pokemon/${this.state.pokeId}`)
@@ -30,6 +46,76 @@ export default createStore({
 				.then((response) => commit("SET_SEARCH", response))
 				.catch((error) => console.log(error))
 		},
+		async fetchCatchPokemon({ commit }) {
+			let array = []
+			if (this.state.userContainer) {
+				setTimeout(() => {
+					array.push(
+						this.state.userContainer.myPokemons.map((res) => {
+							return `https://pokeapi.co/api/v2/pokemon/${res}`
+						})
+					)
+					axios
+						.all(array[0].map((url) => axios.get(url)))
+						.then((response) => commit("SET_CATCHPOKE", response))
+						.catch((error) => console.log(error))
+				}, 2000)
+			}else{
+				console.log("No container")
+			}
+		},
+		async connectGoggle() {
+			signInWithPopup(auth, provider)
+				.then((result) => {
+					const credential = GoogleAuthProvider.credentialFromResult(result)
+					const token = credential.accessToken
+					const user = result.user
+					localStorage.setItem("@AuthLogginGoogle:token", token)
+					localStorage.setItem("@AuthLogginGoogle:user", JSON.stringify(user))
+					window.location.reload()
+				})
+				.catch((error) => {
+					console.log(error.code)
+					console.log(error.message)
+					console.log(error.customData.email)
+					console.log(GoogleAuthProvider.credentialFromError(error))
+				})
+		},
+		async singOut() {
+			signOut(auth)
+				.then(() => {
+					localStorage.clear()
+					console.log("Sign-out successful.")
+					setTimeout(() => {
+						window.location.reload()
+					}, 1000)
+				})
+				.catch((error) => {
+					console.log("An error happened.", error)
+				})
+		},
+		async submitPokemon() {
+			setTimeout(() => {
+				if (this.state.user) {
+					try {
+						setDoc(doc(db, this.state.user.apiKey, this.state.user.uid), {
+							name: this.state.user.displayName,
+							email: this.state.user.email,
+							photoURL: this.state.user.photoURL,
+							myPokemons: [100, 58, 32, 84, 41],
+						})
+					} catch (e) {
+						console.log("Error adding document: ", e)
+					}
+					setTimeout(() => {
+						console.log("Document updated")
+						// window.location.reload()
+					}, 1000)
+				} else {
+					return console.log("Invalid document")
+				}
+			}, [])
+		},
 	},
 	mutations: {
 		SET_POKEMONS(state, pokemon) {
@@ -37,6 +123,12 @@ export default createStore({
 		},
 		SET_SEARCH(state, searchResponse) {
 			state.searchResponse = searchResponse
+		},
+		SET_USER(state, userContainer) {
+			state.userContainer = userContainer
+		},
+		SET_CATCHPOKE(state, catchPokemon) {
+			state.catchPokemon = catchPokemon
 		},
 		nextPokemon(state, data) {
 			if (state.pokeId < 1008) {

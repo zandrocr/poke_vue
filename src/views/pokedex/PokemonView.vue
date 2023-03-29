@@ -6,7 +6,7 @@
 			:key="i"
 			:data-pokeback="typePokemon(poke)"
 			class="col-12"></div>
-		<div class="topInfo col-3">
+		<div class="topInfo col-5 col-lg-3">
 			<div class="d-flex flex-column align-items-start">
 				<h2>#{{ pokemon.id }}</h2>
 				<img src="@/img/icoball.png" alt="iconball" />
@@ -17,19 +17,31 @@
 			<h2>Types</h2>
 			<h5 class="text" v-for="poke in pokemon.types" :key="poke.slot">{{ poke.type.name }}</h5>
 		</div>
-		<div class="pokeInfo col-3 d-flex justify-content-around">
+		<div class="pokeInfo col-5 col-lg-3 d-flex justify-content-around">
 			<h5>{{ pokemon.height / 10 }} m</h5>
 			<h5>X</h5>
 			<h5>{{ pokemon.weight / 10 }} kg</h5>
 		</div>
 		<img
+			data-image
 			:src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`"
 			:alt="pokemon.name"
-			class="col-5 col-lg-4" />
-		<div data-buttons class="col-12 col-lg-3 d-flex justify-content-around">
-			<button data-button="prev" class="d-flex align-items-center justify-content-center" @click="prevPokemon">{{ '<' }}</button>
-			<button data-button="next" class="d-flex align-items-center justify-content-center" @click="nextPokemon">{{ '>' }}</button>
+			class="col-8 col-sm-5 col-md-3 col-lg-4" />
+		<div>
+			<button
+				data-button="prev"
+				class="d-flex align-items-center justify-content-center"
+				@click="prevPokemon">
+				<h2>{{ "<" }}</h2>
+			</button>
+			<button
+				data-button="next"
+				class="d-flex align-items-center justify-content-center"
+				@click="nextPokemon">
+				<h2>{{ ">" }}</h2>
+			</button>
 		</div>
+		<button @click="catchPokemon(pokemon.id)">Catch pokemon</button>
 	</section>
 </template>
 
@@ -49,6 +61,9 @@
 		},
 		mounted() {
 			this.store.dispatch("fetchPokemon")
+		},
+		created() {
+			console.log(this.pokemon)
 		},
 		computed: {
 			pokemon() {
@@ -70,9 +85,9 @@
 					return props.type.name
 				}
 			},
-		},
-		created() {
-			// console.log(this.pokemon)
+			catchPokemon(props){
+				console.log(props)
+			}
 		},
 	}
 </script>
