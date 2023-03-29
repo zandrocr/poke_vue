@@ -1,127 +1,72 @@
+@import '../../_all'
+
 [data-user]
+    padding-bottom: 15vh
+
     [data-icon]
         width: 13vh
         height: 13vh
         margin-top: 2vh
         cursor: pointer
         border-radius: 100%
+
+    [data-userOptions]
+        z-index: 5
+        top: 15vh
+        height: 40vh
+        border-radius: 2vh
+        position: absolute
+        background: #000000f5
+        animation: open .5s ease-in-out
+
+        [data-buttons="closeUser"]
+            margin: -2vh
+            right: 0
+            position: absolute
+
+    .connect
+        height: 40vh
+
+    .connected
+        height: 40vh
+
     .userContainer
         margin-top: 1vh
         padding: 1vh
-        background: #252525
-        overflow-y: scroll
-        height: 75vh
+
         .userPokemon
+            cursor: default
             margin: 2vh
+            height: 30vh
+
+            img
+                cursor: pointer
+
+        .deleteContainer
+            margin: -1vh
+
+            .deletePokemon
+                position: absolute
+                margin: -2vh
+                color: #ffffff
+                height: 5vh
+                width: 5vh
+                cursor: pointer
+                color: #fff
+                border-radius: 100%
+                background: #fc3f3f
+                border: solid 2px black
+                font-weight: bold
+
+        &::-webkit-scrollbar-thumb
+            background-color: #fde400
 
     h5
         background: #000
         text-transform: capitalize
 
-    [data-cardpoke]
-        cursor: pointer
-        height: 30vh
-        border-radius: 1vh
-        background-size: cover
-        background-repeat: no-repeat
-
-        h6
-            padding: .5vh
-            color: #000
-            background: #fff
-            border-radius: 1vh
-            text-transform: capitalize
-
-    [data-cardpoke='grass']
-        background-image: url('/src/img/background/grass.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='fire']
-        background-image: url('/src/img/background/fire.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='water']
-        background-image: url('/src/img/background/water.png')
-        background-size: cover
-        background-repeat: no-repeat
-    [data-cardpoke='bug']
-        background-image: url('/src/img/background/bug.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='normal']
-        background-image: url('/src/img/background/normal.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='flying']
-        background-image: url('/src/img/background/flying.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='poison']
-        background-image: url('/src/img/background/poison.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='electric']
-        background-image: url('/src/img/background/electric.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='ground']
-        background-image: url('/src/img/background/ground.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='fairy']
-        background-image: url('/src/img/background/fairy.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='fighting']
-        background-image: url('/src/img/background/fighting.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='psychic']
-        background-image: url('/src/img/background/psychic.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='rock']
-        background-image: url('/src/img/background/rock.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='rock']
-        background-image: url('/src/img/background/rock.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='ghost']
-        background-image: url('/src/img/background/ghost.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='ice']
-        background-image: url('/src/img/background/ice.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='dragon']
-        background-image: url('/src/img/background/dragon.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='dark']
-        background-image: url('/src/img/background/dark.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='steel']
-        background-image: url('/src/img/background/steel.png')
-        background-size: cover
-        background-repeat: no-repeat
+@keyframes open
+    0%
+        opacity: 0%
+    100%
+        opacity: 100%

@@ -1,3 +1,5 @@
+@import '../../_all'
+
 [data-search]
     top: 0vh
     z-index: 10
@@ -43,111 +45,14 @@
         height: 85vh
         overflow-y: scroll
 
-    [data-cardpoke]
-        cursor: pointer
-        margin: 1vh
-        height: 30vh
+    [data-container]::-webkit-scrollbar-track
+        background: #000
         border-radius: 1vh
-        background-size: cover
-        background-repeat: no-repeat
 
-        h6
-            padding: .5vh
-            color: #000
-            background: #fff
-            border-radius: 1vh
-            text-transform: capitalize
+    [data-container]::-webkit-scrollbar
+        width: 1vh
 
-    [data-cardpoke='grass']
-        background-image: url('/src/img/background/grass.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='fire']
-        background-image: url('/src/img/background/fire.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='water']
-        background-image: url('/src/img/background/water.png')
-        background-size: cover
-        background-repeat: no-repeat
-    [data-cardpoke='bug']
-        background-image: url('/src/img/background/bug.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='normal']
-        background-image: url('/src/img/background/normal.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='flying']
-        background-image: url('/src/img/background/flying.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='poison']
-        background-image: url('/src/img/background/poison.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='electric']
-        background-image: url('/src/img/background/electric.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='ground']
-        background-image: url('/src/img/background/ground.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='fairy']
-        background-image: url('/src/img/background/fairy.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='fighting']
-        background-image: url('/src/img/background/fighting.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='psychic']
-        background-image: url('/src/img/background/psychic.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='rock']
-        background-image: url('/src/img/background/rock.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='rock']
-        background-image: url('/src/img/background/rock.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='ghost']
-        background-image: url('/src/img/background/ghost.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='ice']
-        background-image: url('/src/img/background/ice.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='dragon']
-        background-image: url('/src/img/background/dragon.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='dark']
-        background-image: url('/src/img/background/dark.png')
-        background-size: cover
-        background-repeat: no-repeat
-
-    [data-cardpoke='steel']
-        background-image: url('/src/img/background/steel.png')
-        background-size: cover
-        background-repeat: no-repeat
+    [data-container]::-webkit-scrollbar-thumb
+        border-radius: 1vh
+        background-color: #fd0000
+        box-shadow: inset 0 0 2px #000000
