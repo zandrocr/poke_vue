@@ -12,6 +12,7 @@ export default createStore({
 		catchPokemon: [],
 		searchResponse: [],
 		pokemonSearch: "1",
+		capturedPokemon: [],
 		pokeId: 1,
 		style: [{ pageStyle: "col-12 d-flex flex-column align-items-center justify-content-center" }],
 	},
@@ -60,7 +61,7 @@ export default createStore({
 						.then((response) => commit("SET_CATCHPOKE", response))
 						.catch((error) => console.log(error))
 				}, 2000)
-			}else{
+			} else {
 				console.log("No container")
 			}
 		},
@@ -94,6 +95,7 @@ export default createStore({
 					console.log("An error happened.", error)
 				})
 		},
+		// array.push
 		async submitPokemon() {
 			setTimeout(() => {
 				if (this.state.user) {
@@ -102,13 +104,14 @@ export default createStore({
 							name: this.state.user.displayName,
 							email: this.state.user.email,
 							photoURL: this.state.user.photoURL,
-							myPokemons: [100, 58, 32, 84, 41],
+							myPokemons: this.state.capturedPokemon,
 						})
 					} catch (e) {
 						console.log("Error adding document: ", e)
 					}
 					setTimeout(() => {
 						console.log("Document updated")
+						this.state.capturedPokemon = []
 						// window.location.reload()
 					}, 1000)
 				} else {

@@ -35,6 +35,7 @@
 				:key="i"
 				:data-cardpoke="`${typePokemon(poke.data.types)}`"
 				class="userPokemon col-10 col-md-4 col-lg-3 d-flex flex-column align-items-center justify-content-around">
+				{{ pokemonPokex.push(poke.data.id) }}
 				<div class="deleteContainer col-12 d-flex justify-content-end">
 					<button class="deletePokemon">X</button>
 				</div>
@@ -56,12 +57,14 @@
 		name: "UserView",
 		data() {
 			return {
+				pokemonPokex: [],
 				store: useStore(),
 				option: false,
 			}
 		},
 		created() {
-			// console.log(this.catchPokemon)
+			// this.capturedPokemon.push(250)
+			console.log(this.pokemonPokex)
 		},
 		mounted() {
 			if (this.user) this.store.dispatch("getTrainerPokemon")
@@ -77,10 +80,12 @@
 			catchPokemon() {
 				return this.store.state.catchPokemon
 			},
+			capturedPokemon() {
+				return this.store.state.capturedPokemon
+			},
 		},
 		methods: {
 			options() {
-				console.log(this.option)
 				this.option = !this.option
 			},
 			connectGoggle() {
@@ -90,6 +95,14 @@
 				this.store.dispatch("singOut")
 			},
 			submitPokemon() {
+				this.pokemonPokex.push(
+					this.catchPokemon.map((poke) => {
+						return poke.data.id
+					})
+				)
+				// console.log(this.userContainer.myPokemons)
+				this.capturedPokemon.push(58, 88, 45)
+				// this.capturedPokemon = this.userContainer.myPokemons
 				this.store.dispatch("submitPokemon")
 			},
 			getTrainerPokemon() {

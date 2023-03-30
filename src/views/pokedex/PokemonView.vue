@@ -63,7 +63,7 @@
 			this.store.dispatch("fetchPokemon")
 		},
 		created() {
-			console.log(this.pokemon)
+			// console.log(this.pokemon)
 		},
 		computed: {
 			pokemon() {
