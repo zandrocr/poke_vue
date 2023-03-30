@@ -63,7 +63,16 @@
 			}
 		},
 		created() {
-			// this.capturedPokemon.push(250)
+			this.pokemonPokex ? this.pokemonPokex.push(
+					this.catchPokemon.map((poke) => {
+						return poke.data.id
+					})
+				): setTimeout(()=>{this.pokemonPokex ? this.pokemonPokex.push(
+					this.catchPokemon.map((poke) => {
+						return poke.data.id
+					})
+				)
+},1000)
 			console.log(this.pokemonPokex)
 		},
 		mounted() {
@@ -95,14 +104,13 @@
 				this.store.dispatch("singOut")
 			},
 			submitPokemon() {
-				this.pokemonPokex.push(
+				this.pokemonPokex ? this.pokemonPokex.push(
 					this.catchPokemon.map((poke) => {
 						return poke.data.id
 					})
 				)
 				// console.log(this.userContainer.myPokemons)
 				this.capturedPokemon.push(58, 88, 45)
-				// this.capturedPokemon = this.userContainer.myPokemons
 				this.store.dispatch("submitPokemon")
 			},
 			getTrainerPokemon() {
