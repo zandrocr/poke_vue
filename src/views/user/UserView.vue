@@ -35,6 +35,7 @@
 				:key="i"
 				:data-cardpoke="`${typePokemon(poke.data.types)}`"
 				class="userPokemon col-10 col-md-4 col-lg-3 d-flex flex-column align-items-center justify-content-around">
+				{{ pokemonPokex.push(poke.data.id) }}
 				<div class="deleteContainer col-12 d-flex justify-content-end">
 					<button class="deletePokemon">X</button>
 				</div>
@@ -103,11 +104,11 @@
 				this.store.dispatch("singOut")
 			},
 			submitPokemon() {
-				//this.pokemonPokex ? this.pokemonPokex.push(
-					//this.catchPokemon.map((poke) => {
-					//	return poke.data.id
-					//})
-				//)
+				this.pokemonPokex.push(
+					this.catchPokemon.map((poke) => {
+						return poke.data.id
+					})
+				)
 				// console.log(this.userContainer.myPokemons)
 				this.capturedPokemon.push(this.pokemonPokex)
 				this.store.dispatch("submitPokemon")
