@@ -56,21 +56,21 @@
 		name: "UserView",
 		data() {
 			return {
-				pokemonPokex: [],
+				pokemonPokex: [...this.catchPokemon],
 				store: useStore(),
 				option: false,
 			}
 		},
 		created() {
-			this.pokemonPokex ? this.pokemonPokex.push(
-					this.catchPokemon.map((poke) => {
-						return poke.data.id
-					})
-				): setTimeout(()=>{this.pokemonPokex ? this.pokemonPokex.push(
-					this.catchPokemon.map((poke) => {
-						return poke.data.id
-					})
-				)
+			//this.pokemonPokex ? this.pokemonPokex.push(
+					//this.catchPokemon.map((poke) => {
+						//return poke.data.id
+					//})
+				//): setTimeout(()=>{this.pokemonPokex ? this.pokemonPokex.push(
+				//	this.catchPokemon.map((poke) => {
+				//		return poke.data.id
+					//})
+				//)
 },1000)
 			console.log(this.pokemonPokex)
 		},
