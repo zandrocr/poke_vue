@@ -2,7 +2,7 @@ import axios from "axios"
 import { createStore } from "vuex"
 import { provider, auth, db } from "../firebase"
 import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"
-import { collection, doc, getDocs, setDoc } from "firebase/firestore"
+import { collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore"
 
 export default createStore({
 	state: {
@@ -49,8 +49,10 @@ export default createStore({
 		},
 		async fetchCatchPokemon({ commit }) {
 			let array = []
+			this.state.capturedPokemon = []
 			if (this.state.userContainer) {
 				setTimeout(() => {
+					this.state.capturedPokemon.push(...this.state.userContainer.myPokemons)
 					array.push(
 						this.state.userContainer.myPokemons.map((res) => {
 							return `https://pokeapi.co/api/v2/pokemon/${res}`
@@ -61,8 +63,6 @@ export default createStore({
 						.then((response) => commit("SET_CATCHPOKE", response))
 						.catch((error) => console.log(error))
 				}, 2000)
-			} else {
-				console.log("No container")
 			}
 		},
 		async connectGoggle() {
@@ -95,7 +95,6 @@ export default createStore({
 					console.log("An error happened.", error)
 				})
 		},
-		// array.push
 		async submitPokemon() {
 			setTimeout(() => {
 				if (this.state.user) {
@@ -109,15 +108,24 @@ export default createStore({
 					} catch (e) {
 						console.log("Error adding document: ", e)
 					}
-					setTimeout(() => {
-						console.log("Document updated")
-						this.state.capturedPokemon = []
-						// window.location.reload()
-					}, 1000)
 				} else {
 					return console.log("Invalid document")
 				}
 			}, [])
+		},
+		async deletePokemon() {
+			await updateDoc(doc(collection(db, this.state.user.apiKey), this.state.user.uid), {
+				myPokemons: this.state.capturedPokemon,
+			})
+				.then(() => {
+					console.log("Pokemon deleted successfully")
+				})
+				.catch((err) => {
+					console.log(`Uh-oh, an ${err} occurred!`)
+				})
+			setTimeout(() => {
+				window.location.reload()
+			}, 1000)
 		},
 	},
 	mutations: {

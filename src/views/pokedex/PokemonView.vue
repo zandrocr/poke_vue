@@ -41,12 +41,14 @@
 				<h2>{{ ">" }}</h2>
 			</button>
 		</div>
-		<button @click="catchPokemon(pokemon.id)">Catch pokemon</button>
+		<img src="@/img/pokeballCath.png" alt="pokeball" class="col-1">
+		<button @click="submitPokemon(pokemon.id)">Catch pokemon</button>
 	</section>
 </template>
 
 <script>
 	import { useStore } from "vuex"
+	// import pokeballCath from '@/img/pokeballCath.png'
 	import SearchPokemons from "@/components/search/SearchPokemons.vue"
 
 	export default {
@@ -72,6 +74,9 @@
 			getPokemon() {
 				return this.store.getters.getPokemon
 			},
+			capturedPokemon() {
+				return this.store.state.capturedPokemon
+			},
 		},
 		methods: {
 			nextPokemon() {
@@ -85,9 +90,10 @@
 					return props.type.name
 				}
 			},
-			catchPokemon(props){
-				console.log(props)
-			}
+			submitPokemon(props) {
+				this.capturedPokemon.push(props)
+				this.store.dispatch("submitPokemon", props)
+			},
 		},
 	}
 </script>

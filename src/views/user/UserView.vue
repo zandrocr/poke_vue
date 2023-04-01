@@ -9,7 +9,7 @@
 		<div
 			v-if="option"
 			data-userOptions
-			class="col-10 col-md-4 col-lg-3 d-flex flex-column align-items-center justify-content-between text-center">
+			class="col-10 col-lg-4 d-flex flex-column align-items-center justify-content-between text-center">
 			<button @click="options" data-buttons="closeUser">X</button>
 			<div class="connected d-flex flex-column align-items-center justify-content-around">
 				<div v-if="user">
@@ -27,17 +27,14 @@
 			</div>
 		</div>
 		<h3>{{ user ? user.displayName : "Pokemon Trainer" }}</h3>
-		<button @click="submitPokemon">Submit</button>
 		<div class="userContainer col-12 d-flex flex-wrap justify-content-around">
 			<div
-				v-show="user"
 				v-for="(poke, i) in catchPokemon"
 				:key="i"
 				:data-cardpoke="`${typePokemon(poke.data.types)}`"
 				class="userPokemon col-10 col-md-4 col-lg-3 d-flex flex-column align-items-center justify-content-around">
-				{{ pokemonPokex.push(poke.data.id) }}
 				<div class="deleteContainer col-12 d-flex justify-content-end">
-					<button class="deletePokemon">X</button>
+					<button @click="deletePokemon(poke.data.id)" class="deletePokemon">X</button>
 				</div>
 				<img
 					@click="console.log('e')"
@@ -57,27 +54,17 @@
 		name: "UserView",
 		data() {
 			return {
-				pokemonPokex: [...this.catchPokemon],
 				store: useStore(),
 				option: false,
 			}
 		},
 		created() {
-			//this.pokemonPokex ? this.pokemonPokex.push(
-					//this.catchPokemon.map((poke) => {
-						//return poke.data.id
-					//})
-				//): setTimeout(()=>{this.pokemonPokex ? this.pokemonPokex.push(
-				//	this.catchPokemon.map((poke) => {
-				//		return poke.data.id
-					//})
-				//)
-},1000)
-			console.log(this.pokemonPokex)
+			// console.log(this.pokemonPokex)
 		},
 		mounted() {
 			if (this.user) this.store.dispatch("getTrainerPokemon")
-			if (this.user) this.store.dispatch("fetchCatchPokemon")
+			this.store.dispatch("fetchCatchPokemon")
+			console.log(this.capturedPokemon)
 		},
 		computed: {
 			user() {
@@ -103,15 +90,11 @@
 			logoutGoggle() {
 				this.store.dispatch("singOut")
 			},
-			submitPokemon() {
-				this.pokemonPokex.push(
-					this.catchPokemon.map((poke) => {
-						return poke.data.id
-					})
-				)
-				// console.log(this.userContainer.myPokemons)
-				this.capturedPokemon.push(this.pokemonPokex)
-				this.store.dispatch("submitPokemon")
+			deletePokemon(props) {
+				var busca = props
+				var indice = this.capturedPokemon.indexOf(busca)
+				this.capturedPokemon.splice(indice, 1)
+				this.store.dispatch("deletePokemon")
 			},
 			getTrainerPokemon() {
 				this.store.dispatch("getTrainerPokemon")
