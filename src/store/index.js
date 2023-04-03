@@ -53,6 +53,7 @@ export default createStore({
 			if (this.state.userContainer) {
 				setTimeout(() => {
 					this.state.capturedPokemon.push(...this.state.userContainer.myPokemons)
+					console.log("Download pokedex")
 					array.push(
 						this.state.userContainer.myPokemons.map((res) => {
 							return `https://pokeapi.co/api/v2/pokemon/${res}`
@@ -105,6 +106,7 @@ export default createStore({
 							photoURL: this.state.user.photoURL,
 							myPokemons: this.state.capturedPokemon,
 						})
+						console.log("New Pokemon")
 					} catch (e) {
 						console.log("Error adding document: ", e)
 					}

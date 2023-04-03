@@ -41,14 +41,17 @@
 				<h2>{{ ">" }}</h2>
 			</button>
 		</div>
-		<img src="@/img/pokeballCath.png" alt="pokeball" class="col-1">
-		<button @click="submitPokemon(pokemon.id)">Catch pokemon</button>
+		<img
+			:data-catchPokemon="catchPoke == true ? 'catch' : ''"
+			@click="submitPokemon(pokemon.id)"
+			src="@/img/pokeballCath.png"
+			alt="pokeball"
+			class="" />
 	</section>
 </template>
 
 <script>
 	import { useStore } from "vuex"
-	// import pokeballCath from '@/img/pokeballCath.png'
 	import SearchPokemons from "@/components/search/SearchPokemons.vue"
 
 	export default {
@@ -59,13 +62,18 @@
 		data() {
 			return {
 				store: useStore(),
+				catchPoke: false,
 			}
 		},
 		mounted() {
 			this.store.dispatch("fetchPokemon")
+			setTimeout(() => {
+				this.store.dispatch("getTrainerPokemon")
+				this.store.dispatch("fetchCatchPokemon")
+			}, 2000)
 		},
 		created() {
-			// console.log(this.pokemon)
+			// console.log(this.capturedPokemon)
 		},
 		computed: {
 			pokemon() {
@@ -76,6 +84,12 @@
 			},
 			capturedPokemon() {
 				return this.store.state.capturedPokemon
+			},
+			catchPokemon() {
+				return this.store.state.catchPokemon
+			},
+			user() {
+				return this.store.state.user
 			},
 		},
 		methods: {
@@ -91,8 +105,12 @@
 				}
 			},
 			submitPokemon(props) {
+				this.catchPoke = !this.catchPoke
 				this.capturedPokemon.push(props)
 				this.store.dispatch("submitPokemon", props)
+				setTimeout(() => {
+					this.catchPoke = false
+				}, 1000)
 			},
 		},
 	}

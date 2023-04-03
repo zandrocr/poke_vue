@@ -41,7 +41,7 @@
 					data-image
 					:src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${poke.data.id}.png`"
 					:alt="poke.data.name"
-					class="col-5 col-md-6 col-lg-7" />
+					class="col-5 col-md-6" />
 				<h6>{{ poke.data.name }}</h6>
 			</div>
 		</div>
@@ -59,12 +59,10 @@
 			}
 		},
 		created() {
-			// console.log(this.pokemonPokex)
+			// console.log(this.capturedPokemon)
 		},
 		mounted() {
-			if (this.user) this.store.dispatch("getTrainerPokemon")
-			this.store.dispatch("fetchCatchPokemon")
-			console.log(this.capturedPokemon)
+			if (this.user) this.store.dispatch("getTrainerPokemon") && this.store.dispatch("fetchCatchPokemon")
 		},
 		computed: {
 			user() {
