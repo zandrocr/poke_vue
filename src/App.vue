@@ -1,5 +1,5 @@
 <template>
-	<nav>
+	<nav v-if="openPage">
 		<section data-menu @click="onClick" class="col-12">
 			<div class="col-12 d-flex justify-content-start">
 				<div class="circle"></div>
@@ -39,7 +39,13 @@
 				toggleButton: false,
 				routesNav: router.options.routes,
 				pokeid: this.$store.state.pokeId,
+				openPage: false,
 			}
+		},
+		mounted() {
+			setTimeout(() => {
+				if (document.readyState == "complete") this.openPage = true
+			}, 2000)
 		},
 		methods: {
 			onClick() {

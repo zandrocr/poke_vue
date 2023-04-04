@@ -1,3 +1,15 @@
+.start
+    height: 100vh
+
+    [data-loading]
+        border-radius: 100%
+        animation: go 1s ease-in-out
+
+    @keyframes go
+        100%
+            transform: rotate(360deg)
+
+
 [data-pokemon]
     height: 100vh
     animation: open .5s ease-in-out
